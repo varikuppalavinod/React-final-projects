@@ -2,13 +2,20 @@
 
 import {useRef,useState} from "react"
 import classes from "./Authform.module.css"
+import {useNavigate} from "react-router-dom"
 
 const Authform=()=>{
 
- // const[isLogin,setisLogin]=useState(false)
+  const[isLogin,setisLogin]=useState(true)
   const inputemail=useRef()
   const inputpassword=useRef()
   const inputconformpassword=useRef()
+
+  const navigate=useNavigate();
+
+  const switchhandler=()=>{
+    setisLogin(prevstate=>!prevstate)
+  }
 
   const submithandler=(event)=>{
      event.preventDefault()
@@ -22,10 +29,12 @@ const Authform=()=>{
     }
 
     //console.log(enteredemail,enteredpassword,entercorrectpassword)
-
-   
-    const url="https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDLedg5jzm00E9kPND4FG9kuKewUFMNOtY";
-              
+    let url;
+    if(isLogin){
+      url="https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDLedg5jzm00E9kPND4FG9kuKewUFMNOtY"
+    }else{
+    url="https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDLedg5jzm00E9kPND4FG9kuKewUFMNOtY";
+    }       
     fetch(url,{
       method:"POST",
       body:JSON.stringify({
@@ -45,6 +54,7 @@ const Authform=()=>{
       return res.json()
 
     }).then((data)=>{
+      navigate("/welcome")
       console.log(data)
       console.log("use has successfully signed up")
     }).catch((error)=>{
@@ -54,7 +64,7 @@ const Authform=()=>{
   return(
     <form onSubmit={submithandler}>
     <div className={classes.authform}>
-        <div><h1>SignUp</h1></div>
+        <div><h1>{isLogin?"Login":"Sign Up"}</h1></div>
         <div>
         <input type="email" placeholder="email" ref={inputemail}/>
         <br></br><br></br>
@@ -62,14 +72,19 @@ const Authform=()=>{
         <br></br><br></br>
         <input type="password" placeholder="conformpassword"ref={inputconformpassword} />
         </div> <br></br><br></br>
-        <button type="submit">Sign up</button>
+        <button>{isLogin?"Login":"Sign up"}</button>
         <br></br><br></br>
+        <button>Forgot password</button>
         </div>
-        <button className={classes.button}>Have an account? login</button>
+        <button className={classes.button}  type="button"
+         onClick={switchhandler}
+        > {isLogin?"Have an account? login":"Dont have an account? signup"}</button>
     </form>
   )
 }
 export default Authform
+
+
 /*
 
 import { useRef } from "react";
