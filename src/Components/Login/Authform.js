@@ -1,10 +1,13 @@
 
-
+import {useContext} from "react"
 import {useRef,useState} from "react"
 import classes from "./Authform.module.css"
 import {useNavigate} from "react-router-dom"
+import Cartcontext from "../Store/Authcontext" 
 
 const Authform=()=>{
+  const cartctx=useContext(Cartcontext)
+ console.log("this is authform",cartctx)
 
   const[isLogin,setisLogin]=useState(true)
   const inputemail=useRef()
@@ -54,8 +57,12 @@ const Authform=()=>{
       return res.json()
 
     }).then((data)=>{
+      
+      cartctx.login(data.idToken)
+      
       navigate("/welcome")
-      console.log(data)
+     
+     // console.log(data)
       console.log("use has successfully signed up")
     }).catch((error)=>{
       alert(error.message)

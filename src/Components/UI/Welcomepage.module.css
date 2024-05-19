@@ -1,0 +1,17 @@
+.page{
+    padding:10px;
+    border-bottom:1px solid black;
+    display:flex;
+    justify-content:space-between;
+}
+.page button{
+    border:none;
+    color:blueviolet
+}
+.pageprofile{
+  
+    
+   
+    border-radius:10px;
+
+}
