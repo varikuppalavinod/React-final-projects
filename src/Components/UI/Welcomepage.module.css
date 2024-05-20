@@ -3,15 +3,17 @@
     border-bottom:1px solid black;
     display:flex;
     justify-content:space-between;
+    position:fixed;
+    top:10rem;
+    width:100%;
 }
 .page button{
     border:none;
-    color:blueviolet
+    color:blueviolet;
+    margin-right:3rem;
 }
 .pageprofile{
   
-    
-   
     border-radius:10px;
 
 }

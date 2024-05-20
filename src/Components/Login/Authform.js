@@ -75,7 +75,7 @@ const Authform=()=>{
         <div>
         <input type="email" placeholder="email" ref={inputemail}/>
         <br></br><br></br>
-        <input type="password" placeholder="password" ref={inputpassword}/>
+        <input type="password" placeholder="enterpassword" ref={inputpassword}/>
         <br></br><br></br>
         <input type="password" placeholder="conformpassword"ref={inputconformpassword} />
         </div> <br></br><br></br>
