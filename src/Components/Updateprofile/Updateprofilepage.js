@@ -7,6 +7,160 @@ const Updateprofilepage = () => {
   const inputnameref = useRef();
   const inputurlref = useRef();
   const [profileData, setProfileData] = useState({ displayName: '', photoUrl: '' });
+  const [emailVerified, setEmailVerified] = useState(false);
+
+
+  //retrive/get the userdata
+  useEffect(() => {
+    const fetchProfileData = () => {
+      const idToken = cartctx.token;
+
+      const url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDLedg5jzm00E9kPND4FG9kuKewUFMNOtY`;
+
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          idToken: idToken
+        }),
+      }).then(response => {
+        if (!response.ok) {
+          return response.json().then(data => {
+            throw new Error(data.error.message);
+          });
+        }
+        return response.json();
+      }).then(data => {
+        const user = data.users[0];
+        setProfileData({
+          displayName: user.displayName || '',
+          photoUrl: user.photoUrl || ''
+        });
+        setEmailVerified(user.emailVerified);
+      }).catch(err => {
+        alert(err.message);
+      });
+    };
+
+    fetchProfileData();
+  }, [cartctx.token]);
+
+
+  //  post the userdata to firebase
+  const submithandler = (event) => {
+    event.preventDefault();
+    const enteredname = inputnameref.current.value;
+    const enteredurl = inputurlref.current.value;
+
+    const idToken = cartctx.token;
+
+    const url = "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDLedg5jzm00E9kPND4FG9kuKewUFMNOtY";
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        idToken: idToken,
+        displayName: enteredname,
+        photoUrl: enteredurl,
+        returnSecureToken: true,
+      }),
+    }).then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return response.json().then(data => {
+          throw new Error(data.error.message);
+        });
+      }
+    }).then(data => {
+      console.log(data);
+    }).catch(err => {
+      alert(err.message);
+    });
+  };
+
+
+  //email verication
+  const sendEmailVerificationHandler = () => {
+    const idToken = cartctx.token;
+
+    const url = `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyDLedg5jzm00E9kPND4FG9kuKewUFMNOtY`;
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        requestType: "VERIFY_EMAIL",
+        idToken: idToken
+      }),
+    }).then(response => {
+      if (response.ok) {
+        alert('Verification email sent! Check your inbox.');
+      } else {
+        return response.json().then(data => {
+          throw new Error(data.error.message);
+        });
+      }
+    }).then(data=>{
+      console.log(data)
+    }).catch(err=>{
+      alert(err.message)
+    })
+  };
+
+  return (
+    <div>
+      <div className={classes.page}>
+        <div>
+          <p>Winner never quit, Quitters never win.</p>
+        </div>
+        <div className={classes.complete}>
+          <p>Your profile is 64% completed. A complete profile has higher chances
+            of landing a job.<button>Complete now</button>
+          </p>
+        </div>
+      </div>
+      <div>
+        <div className={classes.contact}>
+          <h2>Contact details</h2>
+          <h2><button>Cancel</button></h2>
+        </div>
+        <form className={classes.name} onSubmit={submithandler}>
+          <label>Full Name:</label>
+          <input type="text" ref={inputnameref} defaultValue={profileData.displayName} />
+          <label>Profile Photo URL</label>
+          <input type="text" ref={inputurlref} defaultValue={profileData.photoUrl} />
+          <button type="submit">Update</button>
+        </form>
+        {!emailVerified && (
+          <button onClick={sendEmailVerificationHandler}>Verify Email</button>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Updateprofilepage;
+
+
+
+/*
+import { useContext, useRef, useState, useEffect } from "react";
+import classes from "./Updateprofilepage.module.css";
+import cartcontext from "../Store/Authcontext";
+
+const Updateprofilepage = () => {
+  const cartctx = useContext(cartcontext);
+  const inputnameref = useRef();
+  const inputurlref = useRef();
+  const [profileData, setProfileData] = useState({ displayName: '', photoUrl: '' });
 
   useEffect(() => {
     const fetchProfileData = () => {

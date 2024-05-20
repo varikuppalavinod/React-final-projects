@@ -85,7 +85,7 @@ const Authform=()=>{
         </div>
         <button className={classes.button}  type="button"
          onClick={switchhandler}
-        > {isLogin?"Have an account? login":"Dont have an account? signup"}</button>
+        > {isLogin?"Dont have an account? signup":"Have an account? login"}</button>
     </form>
   )
 }
