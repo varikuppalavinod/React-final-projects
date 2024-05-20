@@ -62,7 +62,7 @@ const Authform=()=>{
       
       navigate("/welcome")
      
-     // console.log(data)
+      console.log(data)
       console.log("use has successfully signed up")
     }).catch((error)=>{
       alert(error.message)
