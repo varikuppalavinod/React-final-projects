@@ -5,6 +5,7 @@ import Updateprofilepage from "./Components/Updateprofile/Updateprofilepage"
 import Header from "./Components/Header/Header"
 import {useContext} from "react"
 import authcontext from "./Components/Store/Authcontext"
+import Forgotpassword from "./Components/Forgotpassword/Forgotpassword"
 
 const App=()=>{
 
@@ -20,6 +21,7 @@ const App=()=>{
    &&<Route path="/" element={<Authform/>}/>
    {isloggedin && <Route path="/welcome" element={<Welcomepage/>}></Route>}
    {isloggedin && <Route path="/updateprofilepage" element={<Updateprofilepage/>}/>}
+   <Route path="/forgotpassword" element={<Forgotpassword/>}/>
    <Route path="*" element={<Authform/>}/>
    
     </Routes>

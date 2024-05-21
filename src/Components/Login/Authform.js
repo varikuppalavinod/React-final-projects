@@ -69,8 +69,10 @@ const Authform=()=>{
     })
   }
   return(
-    <form onSubmit={submithandler}>
+    <div>
+  
     <div className={classes.authform}>
+    <form onSubmit={submithandler}>
         <div><h1>{isLogin?"Login":"Sign Up"}</h1></div>
         <div>
         <input type="email" placeholder="email" ref={inputemail}/>
@@ -79,14 +81,16 @@ const Authform=()=>{
         <br></br><br></br>
         <input type="password" placeholder="conformpassword"ref={inputconformpassword} />
         </div> <br></br><br></br>
-        <button>{isLogin?"Login":"Sign up"}</button>
+        <button type="submit">{isLogin?"Login":"Sign up"}</button>
         <br></br><br></br>
-        <button>Forgot password</button>
+        </form>
+        <button onClick={()=>{navigate("/forgotpassword")}}>Forgot password</button>
         </div>
         <button className={classes.button}  type="button"
          onClick={switchhandler}
         > {isLogin?"Dont have an account? signup":"Have an account? login"}</button>
-    </form>
+   
+    </div>
   )
 }
 export default Authform
