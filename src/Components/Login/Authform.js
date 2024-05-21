@@ -4,12 +4,17 @@ import {useRef,useState} from "react"
 import classes from "./Authform.module.css"
 import {useNavigate} from "react-router-dom"
 import Cartcontext from "../Store/Authcontext" 
+import ExpenseForm from "../Expenses/ExpenseForm"
 
 const Authform=()=>{
   const cartctx=useContext(Cartcontext)
  console.log("this is authform",cartctx)
 
+ const isloggedin=cartctx.isLoggedIn
+
+ 
   const[isLogin,setisLogin]=useState(true)
+ 
   const inputemail=useRef()
   const inputpassword=useRef()
   const inputconformpassword=useRef()
@@ -60,7 +65,8 @@ const Authform=()=>{
       
       cartctx.login(data.idToken)
       
-      navigate("/welcome")
+      
+     // navigate("/welcome")
      
       console.log(data)
       console.log("use has successfully signed up")
@@ -70,7 +76,7 @@ const Authform=()=>{
   }
   return(
     <div>
-  
+    {!isloggedin&&<div>
     <div className={classes.authform}>
     <form onSubmit={submithandler}>
         <div><h1>{isLogin?"Login":"Sign Up"}</h1></div>
@@ -89,7 +95,11 @@ const Authform=()=>{
         <button className={classes.button}  type="button"
          onClick={switchhandler}
         > {isLogin?"Dont have an account? signup":"Have an account? login"}</button>
-   
+
+</div>}
+          {isloggedin && <ExpenseForm />}  
+
+
     </div>
   )
 }
