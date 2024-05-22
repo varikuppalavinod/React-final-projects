@@ -1,5 +1,113 @@
+import { useState, useEffect } from 'react';
+import classes from './ExpenseForm.module.css';
+import  {database,push,ref,onValue}  from '../Firebase'; // Ensure correct import paths
+
+const ExpenseForm = () => {
+    const [amount, setAmount] = useState('');
+    const [description, setDescription] = useState('');
+    const [category, setCategory] = useState('');
+    const [expenses, setExpenses] = useState([]);
+      
+      //Get method using firebase get th data
+    useEffect(() => {
+      const expensesRef = ref(database, 'expensetracker');
+      onValue(expensesRef, (snapshot) => {
+          const data = snapshot.val();
+          if (data) {
+              const loadedExpenses = Object.entries(data).map(([key, value]) => ({
+                  id: key,
+                  ...value,
+              }));
+              setExpenses(loadedExpenses);
+          } else {
+              setExpenses([]);
+          }
+      });
+  }, []);
+
+    const submitHandler = (event) => {
+        event.preventDefault();
+        const newExpense = {
+            amount,
+            description,
+            category,
+        };
+        // post the data to firebase
+        push(ref(database, 'expensetracker'), newExpense, (err) => {
+            if (err) {
+                console.log(err);
+            }
+        });
+        
+        setAmount('');
+        setDescription('');
+        setCategory('');
+    };
+
+    return (
+        <div>
+            <div className={classes.form}>
+                <form onSubmit={submitHandler}>
+                    <div>
+                        <label htmlFor="money">Money</label>
+                        <input
+                            type="number"
+                            id="money"
+                            value={amount}
+                            onChange={(e) => setAmount(e.target.value)}
+                        />
+                    </div>
+                    <br /><br />
+                    <div>
+                        <label htmlFor="description">Description</label>
+                        <input
+                            type="text"
+                            id="description"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
+                    </div>
+                    <br /><br />
+                    <div>
+                        <label htmlFor="category">Category</label>
+                        <select
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                        >
+                            <option>Select Category</option>
+                            <option>Food</option>
+                            <option>Petrol</option>
+                            <option>Salary</option>
+                        </select>
+                        <br /><br />
+                        <button type="submit">Add Expense</button>
+                    </div>
+                </form>
+            </div>
+            <div className={classes.addedexpense}>
+                <h3>Added Expenses</h3>
+                <ul className={classes.expenses}>
+                    {expenses.map((expense) => (
+                        <li key={expense.id}>
+                            {expense.amount} - {expense.description} - {expense.category}
+                            -<button>Edit</button> -<button>Delete</button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+    );
+};
+
+export default ExpenseForm;
+
+
+
+
+/*
 import classes from "./ExpenseForm.module.css"
 import {useState} from "react"
+
 
 
 const ExpenseForm=()=>{
@@ -9,7 +117,6 @@ const ExpenseForm=()=>{
     const[category,setcategory]=useState("")
     const[expenses,setexpenses]=useState([])
 
-
     const submithandler=(event)=>{
       event.preventDefault()
       const newexpenses={
@@ -18,6 +125,13 @@ const ExpenseForm=()=>{
         description:description,
         category:category,
       }
+      firebaseDB.child("expensetracker").push(
+        newexpenses,
+      err=>{
+        if(err){
+          console.log(err)
+        }
+      })
      
       //console.log(newexpenses)
        setexpenses((prevstate)=>[...prevstate,newexpenses])
@@ -60,10 +174,11 @@ const ExpenseForm=()=>{
     </div>
     <div className={classes.addedexpense}>
    <h3> added expenses</h3>
-   <ul>
+   <ul className={classes.expenses}>
     {expenses.map((expense)=>(
         <li key={expense.id}>
        {expense.amount}-{expense.description}-{expense.category}
+       -<button>Edit</button>-<button>Delete</button>
         </li>
     ))}
    </ul>
@@ -73,7 +188,7 @@ const ExpenseForm=()=>{
 }
 export default ExpenseForm
 
-
+*/
 /*
 import { useState } from "react";
 import classes from "./ExpenseForm.module.css";

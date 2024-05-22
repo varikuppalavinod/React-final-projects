@@ -34,6 +34,13 @@
     top:6rem;
     left:40rem;
   }
+  .expenses button{
+   
+    background-color:blueviolet;
+    color:white;
+    border-radius:3px;
+
+  }
 
 
 /*
