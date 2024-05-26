@@ -30,15 +30,31 @@
   }
 
   .addedexpense{
-    position:absolute;
-    top:6rem;
+    position:fixed;
+    top:7rem;
     left:40rem;
+    height: 300px; /* Set a fixed height for vertical scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+   
   }
+  .addedexpense h3{
+    position:fixed;
+  }
+  
+  
+  
+  .addedexpense h2{
+    position:fixed;
+    top:26rem;
+  }
+  
   .expenses button{
    
     background-color:blueviolet;
     color:white;
     border-radius:3px;
+    margin-top:10px;
+    margin-left:5px;
 
   }
 

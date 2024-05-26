@@ -1,23 +1,29 @@
 
+
+
+
 import React,{useState} from "react";
 
 const Authcontext=React.createContext({
     token:"",
     isLoggedIn:false,
     login:(token)=>{},
-    logout:()=>{}
+    logout:()=>{},
+    expensedata:[],
+    updateexpensedata:(expense)=>{}
 
 })
 
 export const Authcontextprovider=(props)=>{
-  const intialtoken=localStorage.getItem("token")
+   const intialtoken=localStorage.getItem("token")
    const[token,setToken]=useState(intialtoken)
+   const[expensedata,setexpensedata]=useState([])
 
    const userIsLoggedIn=!!token;
 
    const loginHandler=(token)=>{
     localStorage.setItem("token",token)
-    console.log(token)
+    //console.log(token)
     setToken(token)
    }
 
@@ -25,12 +31,18 @@ export const Authcontextprovider=(props)=>{
     localStorage.removeItem("token")
     setToken(null)
    }
+   const updateexpensehandler=(expense)=>{
+    setexpensedata(expense)
+   }
 
    const contextvalue={
      token:token,
      isLoggedIn:userIsLoggedIn,
      login:loginHandler,
      logout:logoutHandler,
+     expensedata:expensedata,
+     updateexpensedata:updateexpensehandler,
+     
    }
 
     return <Authcontext.Provider value={contextvalue}>

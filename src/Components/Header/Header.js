@@ -18,7 +18,7 @@ const Header =()=>{
  return(
     <div className={classes.header}>
         <div>
-        <h1> This is Header</h1>
+        <h1>Expense Tracker</h1>
         </div>
         <div>
         <button onClick={logouthandler}>{isloggedin?"Logout":"Login"}</button>

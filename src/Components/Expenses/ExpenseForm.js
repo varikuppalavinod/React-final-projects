@@ -1,12 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useContext } from 'react';
 import classes from './ExpenseForm.module.css';
+import authcontext from "../Store/Authcontext"
 import { database, ref, push, onValue, remove, update } from '../Firebase'; // Ensure correct import paths
 
+
 const ExpenseForm = () => {
+    const authctx=useContext(authcontext)
+    console.log(authctx)
     const [amount, setAmount] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
-    const [expenses, setExpenses] = useState([]);
     const [editMode, setEditMode] = useState(false);
     const [editId, setEditId] = useState(null);
    
@@ -20,14 +23,18 @@ const ExpenseForm = () => {
                     id: key,
                     ...value,
                 }));
-                setExpenses(loadedExpenses);
+              
+              
+              authctx.updateexpensedata(loadedExpenses)
             } else {
-                setExpenses([]);
+            
+              
+              authctx.updateexpensedata([])
             }
         });
     }, []);
-
-
+ 
+    
     //post the data
     const submitHandler = (event) => {
         event.preventDefault();
@@ -84,6 +91,12 @@ const ExpenseForm = () => {
         setEditId(expense.id);
     };
 
+    const totalamount=authctx.expensedata.reduce((total,expense)=>{
+        return total+parseFloat(expense.amount);
+    },0)
+
+
+
     return (
         <div>
             <div className={classes.form}>
@@ -124,17 +137,21 @@ const ExpenseForm = () => {
                     </div>
                 </form>
             </div>
+            
             <div className={classes.addedexpense}>
-                <h3>Added Expenses</h3>
+            <h3>Added Expenses</h3>
+            <br></br><br></br><br></br>
                 <ul className={classes.expenses}>
-                    {expenses.map((expense) => (
+                    {authctx.expensedata.map((expense) => (
                         <li key={expense.id}>
                             {expense.amount} - {expense.description} - {expense.category}
                             <button onClick={() => editHandler(expense)}>Edit</button>
                             <button onClick={() => deleteHandler(expense.id)}>Delete</button>
                         </li>
+                        
                     ))}
                 </ul>
+                <h2>Total Cost: ${totalamount}</h2>
             </div>
         </div>
     );
