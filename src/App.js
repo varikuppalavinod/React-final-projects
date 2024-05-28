@@ -1,16 +1,15 @@
 import Authform from "./Components/Login/Authform"
 import {BrowserRouter,Routes,Route} from "react-router-dom"
-import Welcomepage from "./Components/UI/Welcomepage"
-import Updateprofilepage from "./Components/Updateprofile/Updateprofilepage"
+//import Welcomepage from "./Components/UI/Welcomepage"
+//import Updateprofilepage from "./Components/Updateprofile/Updateprofilepage"
 import Header from "./Components/Header/Header"
-import {useContext} from "react"
-import authcontext from "./Components/Store/Authcontext"
 import Forgotpassword from "./Components/Forgotpassword/Forgotpassword"
 
-const App=()=>{
+//import {authActions} from "./Components/Store/auth"
+//import{useSelector} from "react-redux"
 
-  const authctx=useContext(authcontext)
-  const isloggedin=authctx.isLoggedIn
+const App=()=>{
+ // const isLoggedin=useSelector(state=>state.auth.isLoggedin)
  return(
   <div>
    
@@ -19,8 +18,7 @@ const App=()=>{
   <Routes>
   
    &&<Route path="/" element={<Authform/>}/>
-   {isloggedin && <Route path="/welcome" element={<Welcomepage/>}></Route>}
-   {isloggedin && <Route path="/updateprofilepage" element={<Updateprofilepage/>}/>}
+   
    <Route path="/forgotpassword" element={<Forgotpassword/>}/>
    <Route path="*" element={<Authform/>}/>
    

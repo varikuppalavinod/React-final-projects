@@ -1,17 +1,19 @@
 
-import {useContext} from "react"
+
 import {useRef,useState} from "react"
 import classes from "./Authform.module.css"
 import {useNavigate} from "react-router-dom"
-import Cartcontext from "../Store/Authcontext" 
 import ExpenseForm from "../Expenses/ExpenseForm"
 
+import {authActions} from "../Store/auth"
+import{useSelector,useDispatch} from "react-redux"
+
 const Authform=()=>{
-  const cartctx=useContext(Cartcontext)
- console.log("this is authform",cartctx)
-
- const isloggedin=cartctx.isLoggedIn
-
+    //redux
+   // console.log("this is redux")
+    const dispatch=useDispatch()
+    const isLoggedin=useSelector(state=>state.auth.isLoggedin)
+    console.log("this is redux",isLoggedin)
  
   const[isLogin,setisLogin]=useState(true)
  
@@ -62,9 +64,7 @@ const Authform=()=>{
       return res.json()
 
     }).then((data)=>{
-      
-      cartctx.login(data.idToken)
-      
+      dispatch(authActions.login(data.idToken))
       
      // navigate("/welcome")
      
@@ -76,16 +76,16 @@ const Authform=()=>{
   }
   return(
     <div>
-    {!isloggedin&&<div>
+    {!isLoggedin&&<div>
     <div className={classes.authform}>
     <form onSubmit={submithandler}>
         <div><h1>{isLogin?"Login":"Sign Up"}</h1></div>
         <div>
-        <input type="email" placeholder="email" ref={inputemail}/>
+        <input type="email" placeholder="email" autoComplete="email" ref={inputemail}/>
         <br></br><br></br>
-        <input type="password" placeholder="enterpassword" ref={inputpassword}/>
+        <input type="password" placeholder="enterpassword" autoComplete="new-password" ref={inputpassword}/>
         <br></br><br></br>
-        <input type="password" placeholder="conformpassword"ref={inputconformpassword} />
+        <input type="password" placeholder="conformpassword" autoComplete="new-password" ref={inputconformpassword} />
         </div> <br></br><br></br>
         <button type="submit">{isLogin?"Login":"Sign up"}</button>
         <br></br><br></br>
@@ -97,7 +97,7 @@ const Authform=()=>{
         > {isLogin?"Dont have an account? signup":"Have an account? login"}</button>
 
 </div>}
-          {isloggedin && <ExpenseForm />}  
+          {isLoggedin && <ExpenseForm />}  
 
 
     </div>

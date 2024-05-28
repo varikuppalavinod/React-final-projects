@@ -1,7 +1,5 @@
 
-
 .form{
-
    display:flex;
    flex-direction:column;
    justify-content:center;
@@ -40,13 +38,19 @@
   .addedexpense h3{
     position:fixed;
   }
-  
-  
-  
   .addedexpense h2{
     position:fixed;
     top:26rem;
+    
   }
+  .premium{
+    background-color:blueviolet;
+    color:white;
+    margin-left:5rem;
+    font-size:20px;
+    border-radius:5px;
+  }
+  
   
   .expenses button{
    

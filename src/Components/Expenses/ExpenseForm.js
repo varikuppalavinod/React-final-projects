@@ -1,12 +1,13 @@
-import { useState, useEffect,useContext } from 'react';
+import { useState, useEffect} from 'react';
 import classes from './ExpenseForm.module.css';
-import authcontext from "../Store/Authcontext"
 import { database, ref, push, onValue, remove, update } from '../Firebase'; // Ensure correct import paths
-
+import {expenseActions} from "../Store/expense"
+import{useDispatch,useSelector} from "react-redux"
 
 const ExpenseForm = () => {
-    const authctx=useContext(authcontext)
-    console.log(authctx)
+    const dispatch=useDispatch()
+    const expenses=useSelector(state=>state.expense.expensereduxdata)
+    
     const [amount, setAmount] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
@@ -24,12 +25,11 @@ const ExpenseForm = () => {
                     ...value,
                 }));
               
-              
-              authctx.updateexpensedata(loadedExpenses)
+              dispatch(expenseActions.updateexpense(loadedExpenses))
             } else {
             
-              
-              authctx.updateexpensedata([])
+              dispatch(expenseActions.updateexpense([]))
+
             }
         });
     }, []);
@@ -91,9 +91,9 @@ const ExpenseForm = () => {
         setEditId(expense.id);
     };
 
-    const totalamount=authctx.expensedata.reduce((total,expense)=>{
-        return total+parseFloat(expense.amount);
-    },0)
+      const totalamount=expenses.reduce((total,expense)=>{
+          return total+parseFloat(expense.amount);
+       },0)
 
 
 
@@ -142,7 +142,7 @@ const ExpenseForm = () => {
             <h3>Added Expenses</h3>
             <br></br><br></br><br></br>
                 <ul className={classes.expenses}>
-                    {authctx.expensedata.map((expense) => (
+                    {expenses.map((expense) => (
                         <li key={expense.id}>
                             {expense.amount} - {expense.description} - {expense.category}
                             <button onClick={() => editHandler(expense)}>Edit</button>
@@ -151,7 +151,9 @@ const ExpenseForm = () => {
                         
                     ))}
                 </ul>
-                <h2>Total Cost: ${totalamount}</h2>
+                
+                <h2>Total Cost: ${totalamount}
+                {totalamount>10000 && (<button className={classes.premium}>Activate Premium</button>)}</h2>
             </div>
         </div>
     );

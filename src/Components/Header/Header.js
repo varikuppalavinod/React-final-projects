@@ -1,19 +1,22 @@
-import {useContext} from "react"
+
 import classes from "./Header.module.css"
-import authcontext from "../Store/Authcontext"
 import{useNavigate} from "react-router-dom"
+
+import {authActions} from "../Store/auth"
+import{useSelector,useDispatch} from "react-redux"
 const Header =()=>{
+   
+        //redux
+    const isLoggedin=useSelector(state=>state.auth.isLoggedin)
+    const dispatch=useDispatch()
 
     const navigate=useNavigate();
 
-    const authctx=useContext(authcontext)
-    const isloggedin=authctx.isLoggedIn
-    console.log(isloggedin)
-
     const logouthandler=()=>{
-        authctx.logout()
+        dispatch(authActions.logout())
+    
         navigate("/")  //redirect to login page
-        console.log(authctx)
+        
     }
  return(
     <div className={classes.header}>
@@ -21,7 +24,7 @@ const Header =()=>{
         <h1>Expense Tracker</h1>
         </div>
         <div>
-        <button onClick={logouthandler}>{isloggedin?"Logout":"Login"}</button>
+        <button onClick={logouthandler}>{isLoggedin?"Logout":"Login"}</button>
         </div>
     </div>
  )
