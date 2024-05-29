@@ -13,6 +13,7 @@
    position:absolute;
    top:6rem;
    left:10rem;
+   color:black;
 
 }
 .form div {
@@ -46,10 +47,14 @@
   .premium{
     background-color:blueviolet;
     color:white;
-    margin-left:5rem;
+    position:fixed;
+    right:5rem;
+    bottom:6.5rem;
     font-size:20px;
     border-radius:5px;
   }
+  
+  
   
   
   .expenses button{
@@ -61,6 +66,17 @@
     margin-left:5px;
 
   }
+
+.light {
+    background-color: white;
+    color: black;
+}
+
+.dark {
+    padding:24%;
+    background-color: rgb(71, 60, 62);
+    color:white;
+}
 
 
 /*
