@@ -4,6 +4,8 @@ import{useNavigate} from "react-router-dom"
 
 import {authActions} from "../Store/auth"
 import{useSelector,useDispatch} from "react-redux"
+import ExpenseForm from "../Expenses/ExpenseForm"
+
 const Header =()=>{
    
         //redux
@@ -19,14 +21,14 @@ const Header =()=>{
         
     }
  return(
+    <div style={{display:"flex",flexDirection:"column",width:"100%"}}>
     <div className={classes.header}>
-        <div>
         <h1>Expense Tracker</h1>
-        </div>
-        <div>
         <button onClick={logouthandler}>{isLoggedin?"Logout":"Login"}</button>
         </div>
-    </div>
+        {isLoggedin && <ExpenseForm />}  
+        </div>
+    
  )
 }
 export default Header

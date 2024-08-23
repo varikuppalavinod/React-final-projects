@@ -1,5 +1,81 @@
 
 .form{
+  display:flex;
+  flex-direction:column;
+  padding:2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  width: 300px;
+  background-color: #fbf3f3;
+  border-radius: 10px;
+  color:black;
+  
+  
+
+}
+.form div {
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+   margin-bottom: 0.5rem;
+ }
+ .form button{
+   background-color:rgb(93, 93, 245);
+   color:white;
+   border-radius:5px;
+   cursor:pointer;
+ }
+
+ .addedexpense{
+   height: 300px; /* Set a fixed height for vertical scrolling */
+   overflow-y: auto; /* Enable vertical scrolling */
+  
+ }
+ .addedexpense h3{
+   position:fixed;
+ }
+ .addedexpense h2{
+   position:fixed;
+   top:26rem;
+   
+ }
+ .premium{
+   background-color:blueviolet;
+   color:white;
+   position:fixed;
+   right:5rem;
+   bottom:6.5rem;
+   font-size:20px;
+   border-radius:5px;
+   cursor:pointer;
+ }
+ 
+ .expenses button{
+  
+   background-color:blueviolet;
+   color:white;
+   border-radius:3px;
+   margin-top:10px;
+   margin-left:5px;
+   cursor:pointer;
+ }
+
+.light {
+   background-color: white;
+   color: black;
+}
+
+.dark {
+
+   background-color: rgb(71, 60, 62);
+   color:white;
+}
+
+
+
+
+
+/*
+.form{
    display:flex;
    flex-direction:column;
    justify-content:center;
@@ -26,14 +102,15 @@
     background-color:rgb(93, 93, 245);
     color:white;
     border-radius:5px;
+    cursor:pointer;
   }
 
   .addedexpense{
     position:fixed;
     top:7rem;
     left:40rem;
-    height: 300px; /* Set a fixed height for vertical scrolling */
-    overflow-y: auto; /* Enable vertical scrolling */
+    height: 300px;   
+    overflow-y: auto;  
    
   }
   .addedexpense h3{
@@ -52,6 +129,7 @@
     bottom:6.5rem;
     font-size:20px;
     border-radius:5px;
+    cursor:pointer;
   }
   
   
@@ -64,7 +142,7 @@
     border-radius:3px;
     margin-top:10px;
     margin-left:5px;
-
+    cursor:pointer;
   }
 
 .light {
@@ -78,116 +156,4 @@
     color:white;
 }
 
-
-/*
-.form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    margin: 2rem auto;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-    width: 300px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-  }
-  
-  .form div {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-bottom: 1.5rem;
-  }
-  
-  label {
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-  }
-  
-  input, select {
-    padding: 0.5rem;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  input:focus, select:focus {
-    outline: none;
-    border-color: #007BFF;
-  }
-  
-  button {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    color: #fff;
-    background-color: #007BFF;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 1rem;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
 */
-
-
-
-/* 
-.expenseForm {
-    max-width: 600px;
-    margin:auto;
-    padding: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-    
-
-  }
-  
-  .expenseForm h2,
-  .expenseForm h3 {
-    text-align: center;
-  }
-  
-  .expenseForm form div {
-    margin-bottom: 1rem;
-  }
-  
-  .expenseForm form input,
-  .expenseForm form select {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .expenseForm form button {
-    width: 100%;
-    padding: 0.5rem;
-    border: none;
-    border-radius: 4px;
-    background: #ff5722;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-  
-  .expenseForm form button:hover,
-  .expenseForm form button:active {
-    background: #e64a19;
-  }
-  
-  .expenseForm ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .expenseForm ul li {
-    padding: 0.5rem;
-    border-bottom: 1px solid #ccc;
-  }
-  */
